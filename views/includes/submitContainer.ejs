@@ -1,0 +1,27 @@
+<% if (typeof id === 'undefined') { id = '' } %>
+<% if (typeof btnClass === 'undefined') { btnClass = '' } %>
+<% if (typeof btnText === 'undefined') { btnText = 'Submit' } %>
+<% if (typeof errorText === 'undefined') { errorText = 'Unexpected interal error. Please try again.' } %>
+
+<div class="submitContainer">
+    <a id="submit<%= id %>" class="submit <%= btnClass %> btn waves-effect"><%= btnText %></a>
+    <div id="preloader<%= id %>" class="preloader-wrapper small">
+        <div class="spinner-layer spinner-red-only">
+            <div class="circle-clipper left">
+                <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+                <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+        </div>
+        <svg id="xMarkContainer<%= id %>" class="xMarkContainer"> <!-- Original from https://stackoverflow.com/questions/36011117/how-to-draw-x-sign-with-svgcss/#36011513 -->
+            <path id="xMark1<%= id %>" class="xMark1" fill="none" d="M16 16 36 36" />
+            <path id="xMark2<%= id %>" class="xMark2" fill="none" d="M36 16 16 36" />
+        </svg>
+        <div id="checkmark<%= id %>" class="checkmark"></div> <!-- Originally from https://codepen.io/scottloway/pen/zqoLyQ -->
+    </div>
+<span id="error<%= id %>" class="error inputError"><%= errorText %></span>
+</div>

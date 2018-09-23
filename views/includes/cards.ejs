@@ -1,0 +1,77 @@
+<% for (var i = 0; i < polls.length; i++) { %>
+    <div class="card hoverable">
+        <div class="card-content">
+
+            <% if (typeof user !== 'undefined' && user === polls[i].author || user === 'Admin') { %>
+                <div class="cardTitleWithDeleteIconGrid">
+                    <a href="/polls/<%= polls[i].id %>">
+                        <span class="card-title"><%= polls[i].title %></span>
+                    </a>
+                    <a id="<%= polls[i].id %>" class="btn waves-effect deletePollBtn deleteUser right"><i class="fa fa-trash"></i></a>
+                </div>
+            <% } else { %>
+                <a href="/polls/<%= polls[i].id %>">
+                    <span class="card-title"><%= polls[i].title %></span>
+                </a>
+            <% } %>
+
+            <div class="pollInfo row">
+                <% let author = polls[i].author %>
+                <div class="authorInfo col s4 m3" title="<%= author %>">
+                    <i class="material-icons">account_circle</i>
+                    <span> <%= author %> </span>
+                </div>
+                <% let fromNow = moment(polls[i].timestamp).fromNow() %>
+                <div class="timeInfo col s4 m3" title="<%= fromNow %>">
+                    <i class="material-icons">access_time</i>
+                    <span> <%= fromNow %> </span>
+                </div>
+                <% let totalVotes = polls[i].votes.reduce(function(a, b) { return a + b}, 0) %>
+                <div class="votesInfo col s4 m3" title="<%= totalVotes + 'votes' %>">
+                    <i class="material-icons">bookmark</i>
+                    <span><%= totalVotes %> votes</span>
+                </div>
+            </div>
+
+                <div class="cardGridContainer">
+
+                    <div class="cardVote">
+                        <div id="voteSelectWrapper" class="input-field">
+                            <select id="formVoteSelect<%= polls[i].id %>">
+                            <option value="" disabled selected>Select an option</option>
+                            <% for (var j = 0; j < polls[i].options.length; j++) { %>
+                                <option value="<%= j %>"><%= polls[i].options[j] %></option>
+                            <% } %>
+                            </select>
+                            <span id="formVoteError<%=polls[i].id%>" class="inputError">Please select an option.</span>
+
+                            <%- include('../includes/submitContainer.ejs', {id: 'Vote' + polls[i].id, btnClass: 'voteBtn', btnText: 'Vote', errorText: 'You have already voted for this option.'}) %>
+                            
+                        </div>
+                    </div>
+
+                    <div class="cardAddOption">
+                        <% if(authenticated) { %>
+                            <p class="addOptionOr">Or</p>
+                            <div class="input-field">
+                                <input id="formAddOption<%=polls[i].id%>" type="text" name="option">
+                                <label for="formAddOption">Add your own</label>
+                                <span id="formAddOptionError<%=polls[i].id%>" class="inputError">Please add an option.</span>
+
+                                <%- include('../includes/submitContainer.ejs', {id: 'AddOption' + polls[i].id, btnClass: 'addOptionBtn', btnText: 'Add', errorText: 'Option already exists. Please try again.'}) %>
+                                
+                            </div>
+                        <% } else { %>
+                            <p class="loginOrRegister"><a href="/login">Log in</a> or <a href="/register">register</a> to add your own options.</p>
+                        <% } %>
+                    </div>
+
+                    <div class="cardChart">
+                        <canvas id="<%= polls[i].id %>" width=300 height=300></canvas>
+                    </div>
+
+                </div>
+
+        </div>
+    </div>
+<% } %>

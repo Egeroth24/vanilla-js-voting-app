@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <%- include('includes/header.ejs', {pageName: 'μVote'}) %>
+    </head>  
+
+    <body>
+        
+        <nav role="navigation" class="red lighten-1">
+            <%- include('includes/nav.ejs', {pageName: 'μVote', authenticated: authenticated}) %>
+        </nav>
+
+        <div id="indexPage" class="main parallax-container">
+
+            <div class="parallax"><img src="/images/banner.png"></div>
+
+            <div id="indexBanner">
+                <div id="indexBannerCard" class="card hoverable">
+                    <div class="card-content">
+                        <span class="card-title">Welcome to μVote</span>
+                        <p>Vote on user polls and see aggregate results.</p>
+                        <p>Register an account to add your own options and create new polls.</p>
+                        <% if (authenticated) { %>
+                            <a href="/my-polls" class="btn waves-effect">View My Polls</a>
+                        <% } else { %>
+                            <a href="/register" class="btn waves-effect">Register Now</a>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div id="cards">
+            <div class="container">
+                <%- include('includes/cards.ejs') %>
+            </div>
+        </div>
+
+        <footer class="page-footer red lighten-1">
+            <%- include includes/footer %>
+        </footer>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+        <script src="/js/drawCharts.js"></script>
+        <script src="/js/pollVote.js"></script>
+        <script src="/js/pollAddOption.js"></script>
+        <script src="/js/pollDelete.js"></script>
+        <script src="/js/showAndHideErrors.js"></script>
+        <script src="/js/preloader.js"></script>
+        
+        <script>
+            let polls = <%- JSON.stringify(polls) %>;
+            drawCharts({displayLegend: false});
+            $('select').material_select();
+            $('.parallax').parallax();
+            let inputs = document.querySelectorAll('input');
+            for (input of inputs) {
+                input.addEventListener('keyup', function(e) {
+                    if (e.keyCode === 13) {
+                        let id = e.target.id.replace('formAddOption', '');
+                        document.getElementById('submitAddOption' + id).click();
+                    }
+                });
+            }
+        </script>
+
+    </body>
+    
+</html>

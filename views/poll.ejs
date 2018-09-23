@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <%- include('includes/header.ejs', {pageName: 'Poll'}) %>
+    </head>  
+
+    <body>
+        
+        <nav role="navigation" class="red lighten-1">
+            <%- include('includes/nav.ejs', {pageName: 'Poll'}) %>
+        </nav>
+
+        <div id="pollPage" class="main">
+            <div id="cards">
+                <div class="container">
+                    <%- include('includes/cards.ejs') %>
+                </div>
+            </div>
+        </div>
+
+        <footer class="page-footer red lighten-1">
+            <%- include includes/footer %>
+        </footer>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+        <script src="/js/drawCharts.js"></script>
+        <script src="/js/pollVote.js"></script>
+        <script src="/js/pollAddOption.js"></script>
+        <script src="/js/preloader.js"></script>
+        <script src="/js/pollDelete.js"></script>
+        <script src="/js/showAndHideErrors.js"></script>
+        <script>
+            let polls = <%- JSON.stringify(polls) %>;
+            drawCharts({displayLegend: false});
+            $('select').material_select();
+        </script>
+
+    </body>
+    
+</html>

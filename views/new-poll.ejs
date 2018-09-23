@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+    <%- include('includes/header.ejs', {pageName: 'New Poll'}) %>
+    </head>  
+
+    <body>
+        
+        <nav role="navigation" class="red lighten-1">
+            <%- include('includes/nav.ejs', {pageName: 'New Poll'}) %>
+        </nav>
+
+        <div id="newPollPage" class="main mainForm">
+            <div id="newPollContainer">
+
+                <h1>New Poll</h1>
+                <div class="input-field">
+                    <input id="formTitle" type="text">
+                    <label for="formTitle" class="active">Title</label>
+                    <span id="formTitleError" class="inputError">Please add a title at least 4 characters long.</span>
+                </div>
+                <div class="input-field">
+                    <h5>Options</h5>
+                    <h6>Press Enter to add options.</h6>
+                    <div id="chipsContainer">
+                        <div id="formOptions" class="chips"></div>
+                    </div>
+                </div>
+                <div>
+                    <p id="formOptionsError" class="inputError">Please add at least 2 options.</p>
+
+                    <%- include('includes/submitContainer.ejs', {id: 'NewPoll', btnClass: '', btnText: 'Submit', errorText: 'Poll title unavailable. Please try again.'}) %>
+
+                </div>
+            </div>
+        </div>
+
+        <footer class="page-footer red lighten-1">
+            <%- include includes/footer %>
+        </footer>
+
+        <script src="/js/pollNew.js"></script>
+        <script src="/js/showAndHideErrors.js"></script>
+        <script src="/js/preloader.js"></script>
+        <script>
+            $('.chips').material_chip();
+            document.querySelectorAll('#formOptions input')[0].addEventListener('keydown', function(e) {
+                if (e.keyCode === 13 && e.target.value === '') {
+                    document.getElementById('submitNewPoll').click();
+                }
+            });
+            document.getElementById('formTitle').addEventListener('keydown', function(e) {
+                if (e.keyCode === 13) {
+                    document.getElementById('submitNewPoll').click();
+                }
+            });
+        </script>
+
+    </body>
+    
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <%- include('includes/header.ejs', {pageName: 'Admin'}) %>
+    </head>  
+
+    <body>
+        
+        <nav role="navigation" class="red lighten-1">
+            <%- include('includes/nav.ejs') %>
+        </nav>
+
+        <div id="adminPage" class="main">
+            <div id="gridContainer">
+
+                <div id="createColumn">
+                    <h2 class="columnHeader">Create</h2>
+                    <div class="container">
+
+                        <h3>User</h3>
+                        <div class="input-field">
+                            <input id="formUser" type="text" name="user">
+                            <label for="formUser" class="active">Username</label>
+                            <span id="formUserError" class="inputError">Username must be at least 4 characters long.</span>
+                        </div>
+                        <div class="input-field">
+                            <input id="formPassword" type="password">
+                            <label for="formPassword" class="active">Password</label>
+                            <span id="formPasswordError" class="inputError">Password must be at least 8 characters long.</span>
+                        </div>
+                        <div class="input-field">
+                            <input id="formPasswordMatch" type="password">
+                            <label for="formPasswordMatch" class="active">Confirm Password</label>
+                            <span id="formPasswordMatchError" class="inputError">Passwords must match.</span>
+                        </div>
+                        <%- include('includes/submitContainer.ejs', {id: 'Register', btnClass: '', btnText: 'Submit', errorText: 'Username unavailable. Please try again.'}) %>
+
+                        <h3>Poll</h3>
+                        <div class="input-field">
+                            <input id="formTitle" type="text">
+                            <label for="formTitle" class="active">Title</label>
+                            <span id="formTitleError" class="inputError">Please add a title at least 4 characters long.</span>
+                        </div>
+                        <div class="input-field">
+                            <h5>Options</h5>
+                            <h6>Press Enter to add options.</h6>
+                            <div id="chipsContainer">
+                                <div id="formOptions" class="chips"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <p id="formOptionsError" class="inputError">Please add at least 2 options.</p>
+                            <%- include('includes/submitContainer.ejs', {id: 'NewPoll', btnClass: '', btnText: 'Submit', errorText: 'Poll title unavailable. Please try again.'}) %>
+                        </div>
+            
+                    </div>
+                </div>
+                
+                <div id="deleteColumn" class="col s12 m4">
+                    <h2 class="columnHeader">Delete</h2>
+                    <div class="container">
+
+                        <h3>Users</h3>
+                        <% for (var i = 0; i < users.length; i++) { %>
+                            <div id="<%= users[i].username %>" class="card hoverable deleteCardGrid">
+                                <span class="card-title deleteText"><%= users[i].username %></span>
+                                <a id="<%= users[i].username %>" class="btn deleteBtn deleteUserBtn"><i class="fa fa-trash"></i></a>
+                            </div>
+                        <% } %>
+
+                        <h3>Polls</h3>
+                        <% for (var i = 0; i < polls.length; i++) { %>
+                            <div id="<%= polls[i].title %>" class="card hoverable deleteCardGrid">
+                                <span class="card-title"><%= polls[i].title %></span>
+                                <a id="<%= polls[i].id %>" class="btn deleteBtn deletePollBtn"><i class="fa fa-trash"></i></a>
+                            </div>
+                        <% } %>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <footer class="page-footer red lighten-1">
+            <%- include includes/footer %>
+        </footer>
+
+        <script src="/js/userRegister.js"></script>
+        <script src="/js/userDelete.js"></script>
+        <script src="/js/pollNew.js"></script>
+        <script src="/js/pollDelete.js"></script>
+        <script src="/js/preloader.js"></script>
+        <script src="/js/showAndHideErrors.js"></script>
+        
+        <script>
+            let inputs = document.querySelectorAll('input');
+            for (input of inputs) {
+                input.addEventListener('keyup', function(e) {
+                    if (e.keyCode === 13) {
+                        document.getElementById('submitRegister').click();
+                    }
+                });
+            }
+            $('.chips').material_chip();
+            document.querySelectorAll('#formOptions input')[0].addEventListener('keydown', function(e) {
+                if (e.keyCode === 13 && e.target.value === '') {
+                    document.getElementById('submitNewPoll').click();
+                }
+            });
+        </script>
+    
+    </body>
+    
+</html>

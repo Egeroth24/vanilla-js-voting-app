@@ -1,0 +1,45 @@
+<% if (typeof pageName === 'undefined') { pageName = 'μVote' } %>
+<% if (typeof authenticated === 'undefined') { authenticated = false } %>
+
+<div class="nav-wrapper container">
+
+  <a href="/" class="brand-logo">μVote</a>
+  <a href="#" data-activates="mobileNav" class="button-collapse"><i class="material-icons">menu</i></a>
+
+  <ul id="nav-mobile" class="right hide-on-med-and-down">
+    <% if (authenticated) { %>
+      <li <% if (pageName === 'μVote') { %> class="active" <% } %> id="home"><a href="/">Home</a></li>
+      <li <% if (pageName === 'New Poll') { %> class="active" <% } %> id="new-poll"><a href="/new-poll">New Poll</a></li>
+      <li <% if (pageName === 'My Polls') { %> class="active" <% } %> id="my-polls"><a href="/my-polls">My Polls</a></li>
+      <li><a href="/logout">Logout</a></li>
+      <li>
+        <a href="/my-polls" id="user">
+          <i class="material-icons">account_circle</i>
+          <span> <%= user %> </span>
+        </a>
+      </li>
+    <% } else { %>
+      <li <% if (pageName === 'Login') { %> class="active" <% } %> id="login"><a href="/login">Login</a></li>
+      <li <% if (pageName === 'Register') { %> class="active" <% } %> id="register"><a href="/register">Register</a></li>
+    <% } %>
+  </ul>
+
+  <ul id="mobileNav" class="side-nav">
+    <% if (authenticated) { %>
+      <li>
+        <a href="/my-polls" id="user">
+          <i class="material-icons">account_circle</i>
+          <span> <%= user %> </span>
+        </a>
+      </li>
+      <li <% if (pageName === 'μVote') { %> class="active" <% } %> id="home"><a href="/">Home</a></li>
+      <li <% if (pageName === 'New Poll') { %> class="active" <% } %> id="new-poll"><a href="/new-poll">New Poll</a></li>
+      <li <% if (pageName === 'My Polls') { %> class="active" <% } %> id="my-polls"><a href="/my-polls">My Polls</a></li>
+      <li><a href="/logout">Logout</a></li>
+    <% } else { %>
+      <li <% if (pageName === 'Login') { %> class="active" <% } %> id="login"><a href="/login">Login</a></li>
+      <li <% if (pageName === 'Register') { %> class="active" <% } %> id="register"><a href="/register">Register</a></li>
+    <% } %>
+  </ul>
+
+</div>

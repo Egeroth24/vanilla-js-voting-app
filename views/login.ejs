@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <%- include('includes/header.ejs', {pageName: 'Login'}) %>
+    </head>  
+
+    <body>
+        
+        <nav role="navigation" class="red lighten-1">
+            <%- include('includes/nav.ejs', {pageName: 'Login'}) %>
+        </nav>
+
+        <div id="loginPage" class="main mainForm">
+            <div id="loginFormContainer">
+                
+                <h1>Login</h1>
+                <div class="input-field">
+                    <input id="formUser" type="text" name="user">
+                    <label for="formUser" class="active">Username</label>
+                    <span id="formUserError" class="inputError">Username must be at least 4 characters long.</span>
+                </div>
+                <div class="input-field">
+                    <input id="formPassword" type="password">
+                    <label for="formPassword" class="active">Password</label>
+                    <span id="formPasswordError" class="inputError">Password must be at least 8 characters long.</span>
+                </div>
+
+                <%- include('includes/submitContainer.ejs', {id: 'Login', btnClass: '', btnText: 'Submit', errorText: 'Incorrect username or password. Please try again.'}) %>
+
+                <p><a href="register">Need an account?</a></p>
+
+            </div>
+        </div>
+
+        <footer class="page-footer red lighten-1">
+            <%- include includes/footer %>
+        </footer>
+
+        <script src="js/showAndHideErrors.js"></script>
+        <script src="js/preloader.js"></script>
+        <script src="js/userLogin.js"></script>
+        <script>
+            let inputs = document.querySelectorAll('input');
+            for (input of inputs) {
+                input.addEventListener('keyup', function(e) {
+                    if (e.keyCode === 13) {
+                        document.getElementById('submitLogin').click();
+                    }
+                });
+            }
+        </script>
+
+    </body>
+    
+</html>
